@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mi2b_flutter_mobile/Screen/page_dua.dart';
+import 'package:mi2b_flutter_mobile/Screen/page_empat.dart';
+import 'package:mi2b_flutter_mobile/Screen/page_satu.dart';
+import 'package:mi2b_flutter_mobile/Screen/page_tiga.dart';
 
 void main() {
   runApp(const MyApp());
@@ -47,18 +51,80 @@ class PageOne extends StatelessWidget {
       appBar: AppBar(
         //appBar : properti dari sebuah widget
         //AppBar : widget
-
-        title: Text('Aplikasi Pertama',
+        title: Text(
+          'Aplikasi Pertama',
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.purple,
       ),
       body: Center(
-        child: Text("Selamat Datang di Flutter App pertama MI 2B"),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text("Selamat Datang di Flutter App pertama MI 2B"),
+            MaterialButton(onPressed: (){
+              //ini untuk pindah page ke page 1
+              Navigator.push(context, MaterialPageRoute(builder: (context)
+                => PageSatu()
+              ));
+
+              //TASK : Buat Page 2 dan page 3
+              //kemudian bisa pindah
+            },
+              color: Colors.purple,
+              child: Text('Page 1',
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: MaterialButton(onPressed: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)
+                => PageDua()
+                ));
+              },
+                elevation: 18.0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+
+                //ini untuk pindah page
+                // color: Colors.purple,
+                color: Color(0xD15C14FF),//0x
+                clipBehavior: Clip.antiAlias,
+                child: Text('Page 2',
+                  style: TextStyle(fontSize: 14, color: Colors.white),
+                ),
+              ),
+            ),
+            MaterialButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)
+              => PageTiga()
+              ));
+            },
+              //ini untuk pindah page
+              color: Colors.purple,
+              child: Text('Page 3',
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+
+            MaterialButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)
+              => PageEmpat()
+              ));
+            },
+              //ini untuk pindah page
+              color: Colors.purple,
+              child: Text('Page 4',
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+
+          ],
+        ),
         //child :  cuma bisa nampung 1 widget
         //children : bisa nampung beberapa widget
       ),
     );
   }
 }
-
