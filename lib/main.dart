@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:mi2b_flutter_mobile/Screen/page_dua.dart';
 import 'package:mi2b_flutter_mobile/Screen/page_empat.dart';
+import 'package:mi2b_flutter_mobile/Screen/page_gambar.dart';
+import 'package:mi2b_flutter_mobile/Screen/page_image_network.dart';
 import 'package:mi2b_flutter_mobile/Screen/page_satu.dart';
 import 'package:mi2b_flutter_mobile/Screen/page_tiga.dart';
 
@@ -116,6 +118,30 @@ class PageOne extends StatelessWidget {
               //ini untuk pindah page
               color: Colors.purple,
               child: Text('Page 4',
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+
+            MaterialButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)
+              => PageGambar()
+              ));
+            },
+              //ini untuk pindah page
+              color: Colors.purple,
+              child: Text('Page Gambar',
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+
+            MaterialButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)
+              => PageImageNetwork()
+              ));
+            },
+              //ini untuk pindah page
+              color: Colors.purple,
+              child: Text('Page Image Url',
                 style: TextStyle(fontSize: 14, color: Colors.white),
               ),
             ),
