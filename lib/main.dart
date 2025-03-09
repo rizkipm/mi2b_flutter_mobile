@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mi2b_flutter_mobile/Screen/nav_bar/page_tab_bar.dart';
 import 'package:mi2b_flutter_mobile/Screen/page_dua.dart';
 import 'package:mi2b_flutter_mobile/Screen/page_empat.dart';
 import 'package:mi2b_flutter_mobile/Screen/page_gambar.dart';
@@ -142,6 +143,18 @@ class PageOne extends StatelessWidget {
               //ini untuk pindah page
               color: Colors.purple,
               child: Text('Page Image Url',
+                style: TextStyle(fontSize: 14, color: Colors.white),
+              ),
+            ),
+
+            MaterialButton(onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)
+              => PageTabBar()
+              ));
+            },
+              //ini untuk pindah page
+              color: Colors.purple,
+              child: Text('Tab Bar',
                 style: TextStyle(fontSize: 14, color: Colors.white),
               ),
             ),
