@@ -14,6 +14,8 @@ class _PageRegisterState extends State<PageRegister> {
   TextEditingController email = TextEditingController();
   TextEditingController tglLahir = TextEditingController();
   TextEditingController password = TextEditingController();
+  String? valAgama, valJK;
+  final _formKey = GlobalKey<FormState>();
 
   Future selectDate() async {
     DateTime? pickDate = await showDatePicker(
@@ -31,6 +33,7 @@ class _PageRegisterState extends State<PageRegister> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
+        key: _formKey,
         child: Padding(
           padding: EdgeInsets.all(16),
           child: SingleChildScrollView(
@@ -67,7 +70,7 @@ class _PageRegisterState extends State<PageRegister> {
                   controller: tglLahir,
                   hintText: "dd/mm/YYYY",
                   textInputType: TextInputType.datetime,
-                  onTap: (){
+                  onTap: () {
                     selectDate();
                   },
                 ),
@@ -78,6 +81,87 @@ class _PageRegisterState extends State<PageRegister> {
                   hintText: "*****",
                   textInputType: TextInputType.text,
                   obscureText: true,
+                ),
+                SizedBox(height: 15),
+                Text("Pilih Agama", style: TextStyle(fontSize: 18)),
+                SizedBox(height: 5),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.black),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: DropdownButton(
+                    value: valAgama,
+                    underline: Container(),
+                    isExpanded: true,
+                    items:
+                        [
+                          "Islam",
+                          "Kristen Protestan",
+                          "Kristen Katolik",
+                          "Hindu",
+                          "Budha",
+                          "Konghucu",
+                        ].map((e) {
+                          return DropdownMenuItem(
+                            value: e,
+                            child: Padding(
+                              padding: EdgeInsets.all(8),
+                              child: Text(e),
+                            ),
+                          );
+                        }).toList(),
+                    onChanged: (val) {
+                      setState(() {
+                        valAgama = val;
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(height: 15),
+                Text("Jenis Kelamin", style: TextStyle(fontSize: 18)),
+                SizedBox(height: 5),
+                Row(
+                  children: [
+                    Flexible(
+                      child: RadioListTile(
+                        value: "Laki-laki",
+                        groupValue: valJK,
+                        onChanged: (val) {
+                          setState(() {
+                            valJK = val;
+                          });
+                        },
+                        title: Text('Laki-laki'),
+                      ),
+                    ),
+                    Flexible(
+                      child: RadioListTile(
+                        value: "Perempuan",
+                        groupValue: valJK,
+                        onChanged: (val) {
+                          setState(() {
+                            valJK = val;
+                          });
+                        },
+                        title: Text('Perempuan'),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: 15),
+                CostumeButton(
+                  bgColor: Colors.red,
+                  labelButton: "SAVE",
+                  onPressed: () {
+                    setState(() {
+                      //Cek Validasi Input
+                      if(_formKey.currentState!.validate()){
+
+                      }
+                    });
+                  },
+                  labelColor: Colors.white,
                 ),
               ],
             ),
@@ -131,6 +215,64 @@ class CostumeInput extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+}
+
+class CostumeRadio extends StatelessWidget {
+  final String value;
+  final String groupValue;
+  final ValueChanged<String> onChange;
+
+  const CostumeRadio({
+    super.key,
+    required this.value,
+    required this.groupValue,
+    required this.onChange,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Flexible(
+      child: RadioListTile(
+        value: value,
+        groupValue: groupValue,
+        onChanged: (val) {
+          if (val != null) {
+            onChange(val); // Pass the selected value
+          }
+        },
+        title: Text(value),
+      ),
+    );
+  }
+}
+
+class CostumeButton extends StatelessWidget {
+  final Color bgColor;
+  final String labelButton;
+  final VoidCallback onPressed;
+  final Color labelColor;
+
+  const CostumeButton({
+    super.key,
+    required this.bgColor,
+    required this.labelButton,
+    required this.onPressed,
+    required this.labelColor,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size(double.infinity, 50),
+        backgroundColor: bgColor,
+      ),
+      onPressed: () {
+        onPressed.call();
+      },
+      child: Text(labelButton, style: TextStyle(color: labelColor)),
     );
   }
 }
