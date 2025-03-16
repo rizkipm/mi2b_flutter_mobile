@@ -14,7 +14,7 @@ class _PageRegisterState extends State<PageRegister> {
   TextEditingController email = TextEditingController();
   TextEditingController tglLahir = TextEditingController();
   TextEditingController password = TextEditingController();
-  String? valAgama, valJK;
+  String? valAgama, valJK, inputForm;
   final _formKey = GlobalKey<FormState>();
 
   Future selectDate() async {
@@ -123,29 +123,23 @@ class _PageRegisterState extends State<PageRegister> {
                 SizedBox(height: 5),
                 Row(
                   children: [
-                    Flexible(
-                      child: RadioListTile(
-                        value: "Laki-laki",
-                        groupValue: valJK,
-                        onChanged: (val) {
-                          setState(() {
-                            valJK = val;
-                          });
-                        },
-                        title: Text('Laki-laki'),
-                      ),
+                    CostumeRadio(
+                      value: "Pria",
+                      groupValue: valJK.toString(),
+                      onChange: (val) {
+                        setState(() {
+                          valJK = val;
+                        });
+                      },
                     ),
-                    Flexible(
-                      child: RadioListTile(
-                        value: "Perempuan",
-                        groupValue: valJK,
-                        onChanged: (val) {
-                          setState(() {
-                            valJK = val;
-                          });
-                        },
-                        title: Text('Perempuan'),
-                      ),
+                    CostumeRadio(
+                      value: "Wanita",
+                      groupValue: valJK.toString(),
+                      onChange: (val) {
+                        setState(() {
+                          valJK = val;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -156,8 +150,33 @@ class _PageRegisterState extends State<PageRegister> {
                   onPressed: () {
                     setState(() {
                       //Cek Validasi Input
-                      if(_formKey.currentState!.validate()){
+                      if (_formKey.currentState!.validate()) {
+                        //Cek Input agama dan jenis kelamin
+                        if (valAgama != null && valJK != null) {
+                          //ambil input//
+                          inputForm = "Fullname : ${fullname.text}\n"
+                                      "Username : ${username.text}\n"
+                                      "Email : ${email.text}\n"
+                                      "Tanggal Lahir : ${tglLahir.text}\n"
+                                      "Agama : ${valAgama.toString()}\n"
+                                      "Jenis Kelamin : ${valJK.toString()}";
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                inputForm.toString(),
+                              ),
+                            ),
+                          );
 
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text(
+                                "Silahkan Pilih Agama dan Jenis Kelamin",
+                              ),
+                            ),
+                          );
+                        }
                       }
                     });
                   },
